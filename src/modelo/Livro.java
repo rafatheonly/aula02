@@ -71,4 +71,9 @@ public class Livro {
         this.capitulos = capitulos;
     }
 
+    @Override
+    public String toString() {
+        return "Livro " + getTitulo() + "ISBN " + getIsbn() + "Autor " + autores + " Capitulos " + capitulos + " ...";
+    }
+
 }

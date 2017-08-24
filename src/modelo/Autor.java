@@ -15,32 +15,24 @@ public class Autor {
         this.nome = nome;
     }
 
-    /**
-     * @param nome the nome to set
-     */
     public void setNome(String nome) {
         this.nome = nome;
     }
 
-    /**
-     * @param dataNascimento the dataNascimento to set
-     */
     public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 
-    /**
-     * @return the nome
-     */
     public String getNome() {
         return nome;
     }
 
-    /**
-     * @return the dataNascimento
-     */
     public LocalDate getDataNascimento() {
         return dataNascimento;
     }
 
+    @Override
+    public String toString() {
+        return "nome: " + getNome() + "data: " + getDataNascimento();
+    }
 }

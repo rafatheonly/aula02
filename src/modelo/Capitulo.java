@@ -5,6 +5,7 @@ package modelo;
  * @author Rafael
  */
 public class Capitulo {
+
     private String titulo;
     private String textoDescricao;
 
@@ -14,8 +15,8 @@ public class Capitulo {
     public Capitulo(String titulo, String textoDescricao) {
         this.titulo = titulo;
         this.textoDescricao = textoDescricao;
-    }    
-    
+    }
+
     /**
      * @return the titulo
      */
@@ -43,5 +44,10 @@ public class Capitulo {
     public void setTextoDescricao(String textoDescricao) {
         this.textoDescricao = textoDescricao;
     }
-    
+
+    @Override
+    public String toString() {
+        return "titulo " + getTitulo() + "Texto " + getTextoDescricao();
+    }
+
 }

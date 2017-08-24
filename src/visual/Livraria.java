@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import modelo.Autor;
-import modelo.Capitulo;
 import modelo.Livro;
 
 /**
@@ -44,14 +43,10 @@ public class Livraria {
                     }
                     break;
                 case 2:
-                    for (int i = 0; i < livros.length; i++) {
-                        if (livros[i] != null) {
-                            System.out.printf("[%d] %s", i, livros[i] + "\n");
-                        }
-                    }
+
                     break;
                 case 3:
-
+                    listarAcervo();
                     break;
                 case 4:
 
@@ -74,7 +69,7 @@ public class Livraria {
         }
     }
 
-    public int cadastrarLivro() {
+    private int cadastrarLivro() {
         Scanner entrada = new Scanner(System.in);
         System.out.print("Digite o Título do livro: ");
         String titulo = entrada.nextLine();
@@ -89,7 +84,7 @@ public class Livraria {
         return 1;
     }
 
-    public void cadastrarAutores(Livro livro) {
+    private void cadastrarAutores(Livro livro) {
         Scanner entrada = new Scanner(System.in);
 
         int contador = 1;
@@ -99,11 +94,12 @@ public class Livraria {
         int numero = entrada.nextInt();
         int numeroTotal = numero;
 
-        while (numero > 0) {
-            System.out.println("Cadastro de Autor (" + contador + "/" + numeroTotal + ")");
-            System.out.print("Digite o nome do autor: ");
-            entrada.nextLine();
+        while (numero > 0) {            
+            System.out.print("Cadastro de Autor (" 
+                    + contador + "/" + numeroTotal + ")\n"
+                            + "Digite o nome do autor: ");        
             nome = entrada.nextLine();
+            entrada.nextLine();
             System.out.print("Digite a data de nascimento do autor: ");
             LocalDate data = stringToDate(entrada.nextLine());
             numero--;
@@ -119,26 +115,27 @@ public class Livraria {
         }
     }
 
-    public void cadastrarCapitulos(Livro livro) {
+    private void cadastrarCapitulos(Livro livro) {
         Scanner entrada = new Scanner(System.in);
 
+        String tituloCapitulo;
+        String textoDescricao;
         int contador = 1;
-        String titulo;
-        String texto;
 
         System.out.print("Digite o número de capítulos a cadastrar: ");
         int numero = entrada.nextInt();
         int numeroTotal = numero;
-        while (numero > 0) {
-            System.out.println("Cadastro de Capítulos (" + contador + "/" + numeroTotal + ")");
-            System.out.print("Digite o titulo do capítulo: ");
-            titulo = entrada.nextLine();
+        while (numero > 0) {           
+            System.out.print("Cadastro de Capítulos (" 
+                    + contador + "/" + numeroTotal + ")\n"
+                            + "Digite o titulo do capítulo: ");            
+            tituloCapitulo = entrada.nextLine();
             entrada.nextLine();
             System.out.print("Digite o texto do capítulo: ");
-            texto = entrada.nextLine();
+            textoDescricao = entrada.nextLine();
             numero--;
             contador++;
-            int num = livro.adicionarCapitulo(titulo, texto);
+            int num = livro.adicionarCapitulo(tituloCapitulo, textoDescricao);
             if (num == 1) {
                 System.out.println("Ok Capitulo aceito!");
             } else {
@@ -147,9 +144,17 @@ public class Livraria {
         }
     }
 
-    public LocalDate stringToDate(String dataString) {
+    private LocalDate stringToDate(String dataString) {
         DateTimeFormatter formatacaoData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate data = LocalDate.parse(dataString, formatacaoData);
         return data;
+    }
+
+    private void listarAcervo() {
+        for (int i = 0; i < livros.length; i++) {
+            if (livros[i] != null) {
+                System.out.printf("[%d] %s", i, livros[i] + "\n");
+            }
+        }
     }
 }
