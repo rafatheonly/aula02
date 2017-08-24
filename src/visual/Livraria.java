@@ -13,10 +13,9 @@ import modelo.Livro;
  */
 public class Livraria {
 
-    Autor autor;
-    Capitulo cap;
+    Autor autor;   
     Livro livro;
-    Livro[] livros;
+    Livro[] livros = new Livro[10];
 
     public void menu() throws InterruptedException {
         Scanner entrada = new Scanner(System.in);
@@ -39,13 +38,15 @@ public class Livraria {
 
             switch (opcao) {
                 case 1:
-                    cadastrarLivro();
-//                    if (numero == 1) {
-//                        System.out.println("OK");
-//                    }
+                    int numero = cadastrarLivro();
+                    if (numero == 1) {
+                        System.out.println("OK");
+                    }
                     break;
                 case 2:
-
+                    for (int i = 0; i < livros.length; i++) {
+                        System.out.println(livros[i]);
+                    }
                     break;
                 case 3:
 
@@ -71,7 +72,7 @@ public class Livraria {
         }
     }
 
-    public void cadastrarLivro() {
+    public int cadastrarLivro() {
         Scanner entrada = new Scanner(System.in);
         System.out.print("Digite o Título do livro: ");
         String titulo = entrada.nextLine();
@@ -80,17 +81,13 @@ public class Livraria {
         livro = new Livro(titulo, isbn);
         cadastrarAutores(livro);
         cadastrarCapitulos(livro);
-//        int tamanho = livros.length;
-//        if (tamanho == 0) {
-        livros[0] = livro;
-//        } else {
-//            livros[tamanho + 1] = livro;
-//        }
-//        return 1;
-        System.out.println("teste");
+        for (int i = 0; i < livros.length; i++) {
+            livros[i] = livro;
+        }
+        return 1;
     }
 
-    public void cadastrarAutores(Livro lv) {
+    public void cadastrarAutores(Livro livro) {
         Scanner entrada = new Scanner(System.in);
 
         int contador = 1;
@@ -106,16 +103,21 @@ public class Livraria {
             entrada.nextLine();
             nome = entrada.nextLine();
             System.out.print("Digite a data de nascimento do autor: ");
-            LocalDate data = converteData(entrada.nextLine());
+            LocalDate data = stringToDate(entrada.nextLine());
             numero--;
             contador++;
             autor = new Autor(nome);
             autor.setDataNascimento(data);
-            lv.adicionarAutor(autor);
+            int num = livro.adicionarAutor(autor);
+            if (num == 1) {
+                System.out.println("Ok Autor aceito!");
+            } else {
+                System.out.println("Algo deu errado!");
+            }
         }
     }
 
-    public void cadastrarCapitulos(Livro lv) {
+    public void cadastrarCapitulos(Livro livro) {
         Scanner entrada = new Scanner(System.in);
 
         int contador = 1;
@@ -134,12 +136,16 @@ public class Livraria {
             texto = entrada.nextLine();
             numero--;
             contador++;
-            cap = new Capitulo(titulo, texto);
-            lv.adicionarCapitulo(cap);
+            int num = livro.adicionarCapitulo(titulo, texto);
+            if (num == 1) {
+                System.out.println("Ok Capitulo aceito!");
+            } else {
+                System.out.println("Algo deu errado!");
+            }
         }
     }
 
-    public LocalDate converteData(String dataString) {
+    public LocalDate stringToDate(String dataString) {
         DateTimeFormatter formatacaoData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate data = LocalDate.parse(dataString, formatacaoData);
         return data;

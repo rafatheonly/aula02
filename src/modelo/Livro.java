@@ -1,7 +1,5 @@
 package modelo;
 
-import java.time.LocalDate;
-
 /**
  *
  * @author Rafael
@@ -34,21 +32,25 @@ public class Livro {
         this.isbn = isbn;
     }
 
-    public int adicionarCapitulo(Capitulo cap) {
-        
+    public int adicionarCapitulo(String titulo, String textoDescricao) {
+        Capitulo cap = new Capitulo(titulo, textoDescricao);
+        for (int i = 0; i < capitulos.length; i++) {
+            capitulos[i] = cap;
+        }
         return 1;
     }
-    
-    public int removerCapitulo(Capitulo cap){
+
+    public int removerCapitulo(Capitulo cap) {
         return 1;
     }
-    
-    public int adicionarAutor(Autor aut) {  
-        
-        setAutores(aut);        
+
+    public int adicionarAutor(Autor aut) {
+        for (int i = 0; i < autores.length; i++) {
+            autores[i] = aut;
+        }
         return 1;
     }
-   
+
     public int removerAutor(Autor aut) {
         return 1;
     }
