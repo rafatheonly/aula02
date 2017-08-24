@@ -13,7 +13,7 @@ import modelo.Livro;
  */
 public class Livraria {
 
-    Autor autor;   
+    Autor autor;
     Livro livro;
     Livro[] livros = new Livro[10];
 
@@ -45,7 +45,9 @@ public class Livraria {
                     break;
                 case 2:
                     for (int i = 0; i < livros.length; i++) {
-                        System.out.println(livros[i]);
+                        if (livros[i] != null) {
+                            System.out.printf("[%d] %s", i, livros[i] + "\n");
+                        }
                     }
                     break;
                 case 3:
